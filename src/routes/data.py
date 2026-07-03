@@ -29,12 +29,9 @@ async def upload_data(project_id: str, file: UploadFile, settings: Settings = De
             }
         )
     
-    # 2. جلب مسار المشروع وتوليد اسم مميز للملف (بعد تخطي الـ Validation بنجاح)
-    # تأكدي إن الدالة جيت بتعمل create للمجلد لو مش موجود أو إنك بتنشئيه
     project_dir_path = ProjectController().get_project_Path(project_id=project_id)
-    file_path = data_controller.generate_unique_filename(original_filename=file.filename, project_id=project_id)
+    file_path, file_id = data_controller.generate_unique_filepath(original_filename=file.filename, project_id=project_id)
 
-    # 3. حفظ الملف بشكل Async عن طريق Chunks
     try:
         os.makedirs(os.path.dirname(file_path), exist_ok=True)  # تأكدي إن المجلد موجود قبل الحفظ
     except OSError as e:
@@ -55,6 +52,7 @@ async def upload_data(project_id: str, file: UploadFile, settings: Settings = De
         content={
             "signal": "File uploaded successfully",
             "status": "success",
-            "file_path": file_path  # اختياري: عشان تتأكدي هو اتحفظ فين بالظبط
+            "file_path": file_path ,
+            "file_id": file_id
         }
     )

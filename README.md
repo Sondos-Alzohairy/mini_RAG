@@ -42,4 +42,4 @@ Set your environment variables in the `.env` file. Like `GEMINI_API_KEY` value.
 
 ## to run 
 
-uvicorn main:app --reload 
+uvicorn main:app --reload --host 0.0.0.0 --port 5000

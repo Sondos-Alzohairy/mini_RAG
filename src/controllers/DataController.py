@@ -26,8 +26,7 @@ class DataController(BaseController):
 
         return True, ResponseSignal.FILE_VALIDATION_SUCCESS.value
     
-    def generate_unique_filename(self, original_filename: str, project_id: int):
-        # نستخدم self لأنها ورثت الدالة من الـ BaseController
+    def generate_unique_filepath(self, original_filename: str, project_id: int):
         random_file_name = self.generate_random_string(8) 
         project_path = ProjectController().get_project_Path(project_id=project_id)
         cleaned_filename = self.get_cleaned_filename(original_filename)
@@ -37,7 +36,7 @@ class DataController(BaseController):
             random_file_name = self.generate_random_string(8)
             new_file_path = os.path.join(project_path, f"{random_file_name}_{cleaned_filename}")
             
-        return new_file_path # 👈 السطر ده كان ناقص ومهم جداً!
+        return new_file_path , random_file_name+"_"+cleaned_filename
 
     def get_cleaned_filename(self, original_filename: str):
         """Remove special characters from the filename."""
