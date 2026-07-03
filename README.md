@@ -15,7 +15,7 @@ $ conda create -n mini-rag python=3.8
 ```
 3) Activate the environment:
 ```bash
-$ conda activate mini-rag
+$ conda activate mini-rag-app
 ```
 
 ### (Optional) Setup you command line interface for better readability
@@ -25,11 +25,12 @@ export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
 ```
 
 ## Installation
-
+pip install -r requirements.txt
 ### Install the required packages
 
 ```bash
-$ pip install -r requirements.txt
+$ pexport PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
+
 ```
 
 ### Setup the environment variables
@@ -37,6 +38,8 @@ $ pip install -r requirements.txt
 ```bash
 $ cp .env.example .env
 ```
-
 Set your environment variables in the `.env` file. Like `GEMINI_API_KEY` value.
 
+## to run 
+
+uvicorn main:app --reload --host 0.0.0.0 --port 5000
